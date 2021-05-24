@@ -26,7 +26,9 @@
                         <span class="login100-form-title p-b-34 p-t-27">Nuevas Profesiones</span>
 
                         <div class="wrap-input100 validate-input" data-validate = "Enter username">
-                            <input class="input100" type="text" name="username" placeholder="Usuario" id="usuario" autocomplete="off">
+                            <!--<input class="input100" type="text" name="username" placeholder="Usuario" id="usuario" autocomplete="off">-->
+                            <input class="input100" type="text" name="dni" placeholder="DNI" id="dni" autocomplete="off">
+
                             <span class="focus-input100" data-placeholder="&#xf207;"></span>
                         </div>
 
@@ -49,7 +51,7 @@
                         if (isset($_POST['submit'])) {
                             //Conexión con la Base de Datos.
                                 $servername = "localhost";
-                                $database = "proyecto";
+                                $database = "bd_prestamos";
                                 $username = "root";
                                 $password = "";
 
@@ -57,14 +59,18 @@
                                 $conn = mysqli_connect($servername, $username, $password, $database);
 
                             //Cogemos los datos de los inputs mediante el método POST
-                                if (isset($_POST['username']) and isset($_POST['pass'])) {
-                                    $usuario = $_POST['username'];
+                                if (isset($_POST['dni']) and isset($_POST['pass'])) {
+                                    //$usuario = $_POST['username'];
+                                    $dni = $_POST['dni'];
                                     $contrasenia = $_POST['pass'];
                                 }
 
                             //Solicitud de datos preparada para resistir inyección SQL.
-                                if ($stmt = mysqli_prepare($conn, "SELECT nombre_usuarios FROM usuarios WHERE nombre_usuarios = ? AND contrasenia = ?")) {
-                                    mysqli_stmt_bind_param($stmt, "ss", $usuario, $contrasenia);
+//                                if ($stmt = mysqli_prepare($conn, "SELECT nombre_usuario FROM usuarios WHERE nombre_usuarios = ? AND contrasenia = ?")) {
+                                  if ($stmt = mysqli_prepare($conn, "SELECT dni FROM usuarios WHERE dni = ? AND contrasenia = ?")) {
+
+                                    //mysqli_stmt_bind_param($stmt, "ss", $usuario, $contrasenia);
+                                    mysqli_stmt_bind_param($stmt, "ss", $dni, $contrasenia);
 
                                     mysqli_stmt_execute($stmt);
                                     mysqli_stmt_bind_result($stmt, $res);

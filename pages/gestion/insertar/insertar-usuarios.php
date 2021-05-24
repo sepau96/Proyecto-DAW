@@ -82,7 +82,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Curso:</label>
                             <div class="col-sm-10">
-                                <input type="number" id="curso" name="curso" class="form-control" placeholder="1" min="0" max="2" autocomplete="off">
+                                <input type="number" id="curso" name="curso" class="form-control" placeholder="1" min="1" max="2" autocomplete="off">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -91,6 +91,14 @@
                                 <input type="text" id="ciclo" name="ciclo" class="form-control" placeholder="DAW" autocomplete="off">
                             </div>
                         </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Contraseña:</label>
+                            <div class="col-sm-10">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="************" autocomplete="off">
+                            </div>
+                        </div>
+                        
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Rol:</label>
                             <div class="col-sm-10">
@@ -135,12 +143,13 @@
                                     $curso = $_POST['curso'];
                                     $rol = $_POST['rol'];
                                     $ciclo = $_POST['ciclo'];
+                                    $contrasena = $_POST['password'];
 
                                     $conexion = mysqli_connect("localhost", "root", "", "bd_prestamos");
-                                    $SQL = "INSERT INTO usuarios (dni, nombre_usuarios, apellidos, curso, rol, ciclo) VALUES ('$dni','$nombre','$apellidos','$curso','$rol','$ciclo')";
+                                    $SQL = "INSERT INTO usuarios (dni, nombre_usuarios, apellidos, curso, rol, ciclo, contrasenia) VALUES ('$dni','$nombre','$apellidos','$curso','$rol','$ciclo','$contrasena')";
 
                                     if (mysqli_query($conexion, $SQL)) {
-                                        echo "<div class='alert alert-success' role='alert' style='width: 70%;margin: auto;margin-top: 2rem;text-align: center;'>Usuario insertado con éxito!</div>";
+                                        echo "<div class='alert alert-success' role='alert' style='width: 70%;margin: auto;margin-top: 2rem;text-align: center;'>Usuario insertado con éxito!</div>" ; echo $contrasena;
                                     } else {
                                         echo "<div class='alert alert-danger' role='alert' style='width: 70%;margin: auto;margin-top: 2rem;text-align: center;'>El usuario no fue insertado por un error inesperado.</div>";
                                     }
@@ -160,7 +169,7 @@
               <div class="row">
                 <div class="col-lg-4">
                   <h6>Dirección</h6>
-                  <p class="text-justify">Calle Isabela, 1, 41013 Sevilla</p>
+                  <p class="text-justify">Calle Isabella 1, 41013 Sevilla</p>
                 </div>
         
                 <div class="col-lg-4">

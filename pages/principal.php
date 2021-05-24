@@ -12,7 +12,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark">   
             <div class="container">
                 <a class="navbar-brand" href="principal.php"><img src="../img/np.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -68,21 +68,22 @@
                     $conn = mysqli_connect($servername, $username, $password, $database);
 
                 //Solicitud de datos preparada para resistir inyección SQL.
-                    if ($conn) {
-                        $resPrestamos = mysqli_query($conn, "SELECT * FROM prestamos ORDER BY fecha_prestamo DESC LIMIT 1");
-                        $numSerie = "";
-
-                        while ($columna = mysqli_fetch_array($resPrestamos, MYSQLI_ASSOC)) {
-                            $numSerie = $columna["num_serie"];
-                            
-                            $marca = "";
-                            $modelo = "";
-                            //$resMateriales = mysqli_query($conn, "SELECT marca, modelo, ruta FROM materiales WHERE num_serie = '$numSerie'");
-                            $resMateriales = mysqli_query($conn, "SELECT distinct(num_serie), marca, modelo, ruta FROM materiales ");
+//                    if ($conn) {
+//                        $resPrestamos = mysqli_query($conn, "SELECT * FROM prestamos ORDER BY num_serie DESC");
+//                        $numSerie = "";
+//
+//                        while ($columna = mysqli_fetch_array($resPrestamos, MYSQLI_ASSOC)) {
+//                            //$numSerie = $columna["num_serie"];
+//                            
+//                            $marca = "";
+//                            $modelo = "";
+//                            //$resMateriales = mysqli_query($conn, "SELECT marca, modelo, ruta FROM materiales WHERE num_serie = '$numSerie'");
+                            $resMateriales = mysqli_query($conn, "SELECT num_serie, marca, modelo, ruta FROM materiales ORDER BY marca");
 
                             echo "<br>";
 
                             while ($columnaMateriales = mysqli_fetch_array($resMateriales, MYSQLI_ASSOC)) {
+                                $numSerie = $columnaMateriales["num_serie"];
                                 $marca = $columnaMateriales["marca"];
                                 $modelo = $columnaMateriales["modelo"];
                                 $ruta = $columnaMateriales["ruta"];
@@ -123,8 +124,8 @@
                                 echo "</div>";
                                 echo "</div>";
                             }
-                        }
-                    }
+//                        }
+//                    }
 
                     mysqli_close($conn);
             ?>
